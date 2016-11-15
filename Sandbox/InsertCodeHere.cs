@@ -10,15 +10,41 @@ namespace Sandbox
 
             // Create a new bank account with 25 % interest rate
             // (is that legal...?)
-            BankAccount theAccount = new BankAccount(25.0);
-
-            theAccount.Deposit(2000);
 
 
-            // Should this be legal...?
-            theAccount.Deposit(-1000);
+            BankAccount theAccount = null;
+            
+            
+            try
+            {
+                theAccount = new BankAccount(25.0);
+            }
+            catch (IllegalInterestRateException)
+            {
 
-            // Try to withdraw...
+                Console.WriteLine("Interest rate shoudl be tween 0.0 and 20.0");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            ///
+
+            try
+            {
+                theAccount.Deposit(-1000);
+            }
+            catch (NegativeAmountException)
+            {
+                Console.WriteLine("You tried to deposit a negative amount!");                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+
             try
             {
                 theAccount.Withdraw(3000);
@@ -27,10 +53,21 @@ namespace Sandbox
             {
                 Console.WriteLine("You tried to withdraw too much money!");
             }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
 
-            Console.WriteLine("Balance is now : " + theAccount.GetBalance());
-
+            try
+            {
+                Console.WriteLine("Balance is now : " + theAccount.GetBalance());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);                
+            }
+            
             // The LAST line of code should be ABOVE this line
         }
     }
